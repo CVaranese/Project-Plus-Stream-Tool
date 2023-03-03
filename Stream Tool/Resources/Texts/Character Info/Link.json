@@ -15,7 +15,11 @@
         "Link (13)",
         "Link (14)",
         "Link (15)",
-        "Link (16)"
+        "Link (16)",
+        "ClassicRobin",
+        "FingerStripesB",
+        "FingerStripesG",
+        "FingerStripesR"
     ],
     "Left": {
         "x": -75,

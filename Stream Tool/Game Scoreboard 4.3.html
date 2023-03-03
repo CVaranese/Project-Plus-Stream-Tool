@@ -64,14 +64,16 @@
 
         .scoreboardP1 {
             position: absolute;
-            left: 18px;
-            top: 17px;
+            left: 195px;
+            bottom: -5px;
+            width: 400px;
         }
 
         .scoreboardP2 {
             position: absolute;
-            right: 18px;
-            top: 17px;
+            left: 715px;
+            bottom: -5px;
+            width: 400px;
         }
 
         .rect {
@@ -142,15 +144,12 @@
         
 
         .wrappers {
-            position: absolute;
-            width: 255px;
-            height: 54px;
-            line-height: 54px;
+            width: 100%;
+            height: 100%;
             text-align: center;
-            top: 323px;
             opacity: 0;
             color: black;
-            filter: drop-shadow(0px 0px 1px #91ffe7);
+            filter: drop-shadow(0px 0px 1px #000000);
         }
 
         #p1Wrapper {
@@ -163,11 +162,11 @@
         }
 
         .teams {
-            color: #012d16;
+            color: #bdae42;
         }
 
         .pronouns {
-            color: #012d16;
+            color: #bdae42;
             font-style: italic;
         }
 
@@ -185,35 +184,42 @@
 
         .scores {
             position: absolute;
-            top: 400px;
+            bottom: 57px;
+        }
+        #scoresP1 {
+            left: 82px;
         }
         #scoresP2 {
-            right: 35px;
+            left: 1123px;
         }
         .scoreTick {
-            position: absolute;
+            position: relative;
             opacity: 0;
         }
+        .scoreTickColor {
+            width: 100px;
+            height: 100px;
+        }
         #win1P1 {
-            left: 248px;
+            right: 0px;
         }
         #win2P1 {
-            left: 213px;
+            right: 40px;
         }
         #win3P1 {
-            left: 178px;
+            right: 80px;
         }
         #wlP1 {
             left: 64px;
         }
         #win1P2 {
-            right: 248px;
+            left: 0px;
         }
         #win2P2 {
-            right: 213px;
+            left: 40px;
         }
         #win3P2 {
-            right: 178px;
+            left: 80px;
         }
         #wlP2 {
             right: 144px;
@@ -222,61 +228,87 @@
 
         #overlayRound {
             position: absolute;
-            left: 20px;
-            bottom: 70px;
-            opacity: 0;
+            left: 750px;
+            top: 0px;
             filter: drop-shadow(0px 0px 3px black);
+            width: 375px;
+            height: 50px;
+            font-family: "Project+";
+            text-align: center;
+            font-size: 35px;
+        }
+
+        #overlayTournament {
+            position: absolute;
+            left: 175px;
+            top: 0px;
+            filter: drop-shadow(0px 0px 3px black);
+            width: 375px;
+            height: 50px;
+            font-family: "Project+";
+            text-align: center;
+            font-size: 35px;
         }
 
         #round {
             position: absolute;
-            width: 263px;
+            left: 574px;
+            top: 0px;
+            filter: drop-shadow(0px 0px 3px black);
+            width: 150px;
             height: 50px;
-            bottom: -10px;
-            text-align: center;
             font-family: "Project+";
+            text-align: center;
+            font-size: 35px;
+            color: #af9b15;
         }
 
         #bestOf {
             position: absolute;
-            width: 255px;
-            height: 24px;
-            bottom: -22px;
-            text-align: center;
+            left: 577px;
+            top: 0px;
+            filter: drop-shadow(0px 0px 3px black);
+            width: 150px;
+            height: 50px;
             font-family: "Project+";
+            text-align: center;
             font-size: 35px;
-            color: #17ecad;
+            color: #af9b18;
         }
 
 
         #overlayCasters {
             position: absolute;
-            right: 12px;
-            bottom: 25px;
+            right: 60px;
+            top: 273px;
             opacity: 1;
             transform: scale(1.1);
             filter: drop-shadow(0px 0px 3px black);
+            height: 110px;
+            width: 350px;
         }
+
         #caster1 {
-            position: absolute;
-            bottom: 110px;
+            height: 50%;
+            width: 100%;
         }
         #caster2 {
-            position: absolute;
-            bottom: 50px;
+            height: 50%;
+            width: 100%;
         }
         .casterTextBox {
-            position: absolute;
-            width: 255px;
-            height: 36px;
-            right: 0px;
-            text-align: center;
+            float: left;
+            height: 100%;
+            text-align: left;
+            vertical-align: center;
+            display: inline-flex;
         }
         .casterIcon {
             height: 23px;
             width: 22px;
             fill: white;
             transform: translate(3px, 2px);
+            margin-right: 10px;
         }
         .casterText {
             font-size: 22px;
@@ -284,26 +316,20 @@
         }
 
         .casterTwitterBox {
-            position: absolute;
-            width: 255px;
-            height: 36px;
-            bottom: -60px;
-            right: 0px;
-            text-align: center;
+            height: 100%;
+            float: right;
         }
         .twitterIcon {
             height: 20px;
             width: 20px;
             transform: translateY(3px);
-            fill: #17ecad;
+            fill: #af9b18;
+        }
+        .casterSocialBox {
+            height: 100%;
+            text-align: center;
         }
         .casterTwitchBox {
-            position: absolute;
-            width: 255px;
-            height: 36px;
-            bottom: -62px;
-            right: 0px;
-            text-align: center;
         }
         .twitchIcon {
             height: 17px;
@@ -314,7 +340,7 @@
         .socialText {
             font-size: 18px;
             font-family: "Project+";
-            color: #17ecad;
+            color: #af9b18;
         }
 
         
@@ -410,114 +436,83 @@
 
 <body>
 
-    <div id="theBackground">
-        <video autoplay loop class="absol" src="Resources/Overlay/Scoreboard 4.3/BG.mp4"></video>
-    </div>
-
-    <img class="absol" src="Resources/Overlay/Scoreboard 4.3/Game Borders.png">
-
+    <img class="absol" src="Resources/Overlay/Scoreboard 4.3/singles2.png">
 
     <div id="overlayP1" class="scoreboardP1">
-        <img src="Resources/Overlay/Scoreboard 4.3/Character Border.png" class="absol">
-
-        <div class="rect" id="p1Color"></div>
-        <img class="sagaIcon" id="sagaIconP1">
-        <div class="pCharaMask">
-        <img id="p1Character" class="pCharacter">
-        <img id="p1State" class="pState">
-        </div>
-
-        <img id="teamLogoP1" class="teamLogo">
-
-        <span id="p1Wrapper" class="wrappers">
-            <span id="p1Team" class="teams"></span>
+        <div id="p1Wrapper" class="wrappers">
             <span id="p1Name" class="names"></span>
             <span id="p1Pron" class="pronouns"></span>
-        </span>
+        </div>
     </div>
     
     <div id="scoresP1" class="scores">
         <div id="win1P1" class="scoreTick">
-            <svg width="35" height="23" id="win1P1Color" class="absol">
-                <polygon points="10,0 32,0 25,23 0,23"/>
+            <svg width="35" height="23" id="win1P1Color" class="absol mirror scoreTickColor">
+                <polygon points="6,5 37,6 150,100 114,100"/>
             </svg>
-            <img src="Resources/Overlay/Scoreboard 4.3/Win Border.png" id="win1P1Border" class="absol">
+            <img src="Resources/Overlay/Scoreboard 4.3/Win Border2.png" id="win1P1Border" class="absol mirror">
         </div>
         
         <div id="win2P1" class="scoreTick">
-            <svg width="35" height="23" class="absol" id="win2P1Color">
-                <polygon points="10,0 32,0 25,23 0,23"/>
+            <svg width="35" height="23" class="absol mirror scoreTickColor" id="win2P1Color">
+                <polygon points="6,5 37,6 150,100 114,100"/>
             </svg>
-            <img src="Resources/Overlay/Scoreboard 4.3/Win Border.png" class="absol" id="win2P1Border">
+            <img src="Resources/Overlay/Scoreboard 4.3/Win Border2.png" class="absol mirror" id="win2P1Border">
         </div>
 
         <div id="win3P1" class="scoreTick">
-            <svg width="35" height="23" class="absol" id="win3P1Color">
-                <polygon points="10,0 32,0 25,23 0,23"/>
+            <svg width="35" height="23" class="absol mirror scoreTickColor" id="win3P1Color">
+                <polygon points="6,5 37,6 150,100 114,100"/>
             </svg>
-            <img src="Resources/Overlay/Scoreboard 4.3/Win Border.png" class="absol" id="win3P1Border">
+            <img src="Resources/Overlay/Scoreboard 4.3/Win Border2.png" class="absol mirror" id="win3P1Border">
         </div>
 
         <div id="wlP1" class="scoreTick">
-            <img src="Resources/Overlay/Scoreboard 4.3/WL BG.png" class="absol">
+            <img src="Resources/Overlay/Scoreboard 4.3/WL BG.png" class="absol mirror">
             <img class="absol" id="wlP1Text">
         </div>
     </div>
 
 
     <div id="overlayP2" class="scoreboardP2">
-        <img src="Resources/Overlay/Scoreboard 4.3/Character Border.png"/>
 
-        <div class="rect" id="p2Color"></div>
-        <img class="sagaIcon" id="sagaIconP2">
-        <div class="pCharaMask">
-        <img id="p2Character" class="pCharacter"/>
-        <img id="p2State" class="pState">
-            </div>
-        </div>
-
-        <img id="teamLogoP2" class="teamLogo">
-
-        <span id="p2Wrapper" class="wrappers">
-            <span id="p2Team" class="teams"></span>
+        <div id="p2Wrapper" class="wrappers">
             <span id="p2Name" class="names"></span>
             <span id="p2Pron" class="pronouns"></span>
-        </span>
+        </div>
     </div>
     
     <div id="scoresP2" class="scores">
         <div id="win1P2" class="scoreTick">
-            <svg width="35" height="23" id="win1P2Color" class="absol mirror">
-                <polygon points="10,0 32,0 25,23 0,23"/>
+            <svg id="win1P2Color" class="absol">
+                <polygon points="6,5 37,6 150,100 114,100"/>
             </svg>
-            <img src="Resources/Overlay/Scoreboard 4.3/Win Border.png" id="win1P2Border" class="absol mirror">
+            <img src="Resources/Overlay/Scoreboard 4.3/Win Border2.png" id="win1P2Border" class="absol">
         </div>
         
         <div id="win2P2" class="scoreTick">
-            <svg width="35" height="23" class="absol mirror" id="win2P2Color">
-                <polygon points="10,0 32,0 25,23 0,23"/>
+            <svg class="absol scoreTickColor" id="win2P2Color">
+                <polygon points="6,5 37,6 150,100 114,100"/>
             </svg>
-            <img src="Resources/Overlay/Scoreboard 4.3/Win Border.png" class="absol mirror" id="win2P2Border">
+            <img src="Resources/Overlay/Scoreboard 4.3/Win Border2.png" class="absol" id="win2P2Border">
         </div>
 
         <div id="win3P2" class="scoreTick">
-            <svg width="35" height="23" class="absol mirror" id="win3P2Color">
-                <polygon points="10,0 32,0 25,23 0,23"/>
+            <svg class="absol scoreTickColor" id="win3P2Color">
+                <polygon points="6,5 37,6 150,100 114,100"/>
             </svg>
-            <img src="Resources/Overlay/Scoreboard 4.3/Win Border.png" class="absol mirror" id="win3P2Border">
+            <img src="Resources/Overlay/Scoreboard 4.3/Win Border2.png" class="absol" id="win3P2Border">
         </div>
 
         <div id="wlP2" class="scoreTick">
-            <img src="Resources/Overlay/Scoreboard 4.3/WL BG.png" class="absol mirror">
+            <img src="Resources/Overlay/Scoreboard 4.3/WL BG.png" class="absol">
             <img class="absol" id="wlP2Text">
         </div>
     </div>
 
-
-    <div id="overlayRound">
-        <span id="round"></span>
-        <span id="bestOf">Best of 5</span>
-    </div>
+    <div id="overlayRound"></div>
+    <div id="overlayTournament"></div>
+    <div id="bestOf"></div>
 
     <div id="overlayCasters">
         <div id="caster1">
@@ -536,15 +531,6 @@
                         <path d="M18.258,3.266c-0.693,0.405-1.46,0.698-2.277,0.857c-0.653-0.686-1.586-1.115-2.618-1.115c-1.98,0-3.586,1.581-3.586,3.53c0,0.276,0.031,0.545,0.092,0.805C6.888,7.195,4.245,5.79,2.476,3.654C2.167,4.176,1.99,4.781,1.99,5.429c0,1.224,0.633,2.305,1.596,2.938C2.999,8.349,2.445,8.19,1.961,7.925C1.96,7.94,1.96,7.954,1.96,7.97c0,1.71,1.237,3.138,2.877,3.462c-0.301,0.08-0.617,0.123-0.945,0.123c-0.23,0-0.456-0.021-0.674-0.062c0.456,1.402,1.781,2.422,3.35,2.451c-1.228,0.947-2.773,1.512-4.454,1.512c-0.291,0-0.575-0.016-0.855-0.049c1.588,1,3.473,1.586,5.498,1.586c6.598,0,10.205-5.379,10.205-10.045c0-0.153-0.003-0.305-0.01-0.456c0.7-0.499,1.308-1.12,1.789-1.827c-0.644,0.28-1.334,0.469-2.06,0.555C17.422,4.782,17.99,4.091,18.258,3.266"></path>
                     </svg>
                     <span id="caster1Tr" class="socialText"></span>
-                </div>
-
-                <div id="caster1TwitchBox" class="casterTwitchBox">
-                    <svg class="twitchIcon" viewBox="0 0 24 24">
-                        <path d="m.975 4.175v16.694h5.749v3.131h3.139l3.134-3.132h4.705l6.274-6.258v-14.61h-21.434zm3.658-2.09h17.252v11.479l-3.66 3.652h-5.751l-3.134 3.127v-3.127h-4.707z"/>
-                        <path d="m10.385 6.262h2.09v6.26h-2.09z"/>
-                        <path d="m16.133 6.262h2.091v6.26h-2.091z"/>
-                    </svg>
-                    <span id="caster1Th" class="socialText"></span>
                 </div>
             </div>
 
@@ -567,40 +553,9 @@
                     </svg>
                     <span id="caster2Tr" class="socialText"></span>
                 </div>
-
-                <div id="caster2TwitchBox" class="casterTwitchBox">
-                    <svg class="twitchIcon" viewBox="0 0 24 24">
-                        <path d="m.975 4.175v16.694h5.749v3.131h3.139l3.134-3.132h4.705l6.274-6.258v-14.61h-21.434zm3.658-2.09h17.252v11.479l-3.66 3.652h-5.751l-3.134 3.127v-3.127h-4.707z"/>
-                        <path d="m10.385 6.262h2.09v6.26h-2.09z"/>
-                        <path d="m16.133 6.262h2.091v6.26h-2.091z"/>
-                    </svg>
-                    <span id="caster2Th" class="socialText"></span>
-                </div>
             </div>
 
         </div>
-    </div>
-
-
-    <div id="overlayIntro">
-        <div id="introBG"></div>
-
-        <video id="introVid" width="1920" height="1080"></video>
-
-        <div id="playersIntro">
-            <span id="p1Intro" class="pIntro"></span>
-            <span id="p2Intro" class="pIntro"></span>
-        </div>
-        
-        <div id="textsIntro">
-            <span id="midTextIntro" class="textIntro">VS</span>
-            <div id="rtIntro">
-                <span id="roundIntro" class="textIntro"></span>
-                <span id="tNameIntro" class="textIntro"></span>
-            </div>
-        </div>
-
-        <span id="superCoolInterrogation">?</span>
     </div>
     
 </body>

@@ -12,7 +12,7 @@ let p2CharacterPrev, p2SkinPrev, p2StatePrev, p2ScorePrev, p2ColorPrev, p2wlPrev
 let bestOfPrev;
 
 //max text sizes (used when resizing back)
-const roundSize = '50px';
+const roundSize = '35px';
 const casterSize = '24px';
 const twitterSize = '20px';
 
@@ -62,13 +62,12 @@ async function getData(scInfo) {
 
 	let round = scInfo['round'];
 	let bestOf = scInfo['bestOf'];
+	let tournamentName = scInfo['tournamentName'];
 
 	let caster1 = scInfo['caster1Name'];
 	twitter1 = scInfo['caster1Twitter'];
-	twitch1 = scInfo['caster1Twitch'];
 	let caster2 = scInfo['caster2Name'];
 	twitter2 = scInfo['caster2Twitter'];
-	twitch2 = scInfo['caster2Twitch'];;
 
 
 	//first, things that will happen only the first time the html loads
@@ -76,9 +75,6 @@ async function getData(scInfo) {
 		//of course, we have to start with the cool intro stuff
 		const allowIntro = scInfo['allowIntro']; //to know if the intro is allowed
 		if (allowIntro) {
-
-			//this variable is only used in the intro
-			const tournamentName = scInfo['tournamentName'];
 
 			//lets see that intro
 			document.getElementById('overlayIntro').style.opacity = 1;
@@ -137,8 +133,9 @@ async function getData(scInfo) {
 				}
 			}
 
-			document.getElementById('roundIntro').textContent = round;
-			document.getElementById('tNameIntro').textContent = tournamentName;
+			document.getElementById('overlayRound').textContent = round;
+			console.log(tournamentName + "NAME");
+			document.getElementById('overlayTournament').textContent = tournamentName;
 			
 			//round, tournament and VS/GameX text fade in
 			gsap.to(".textIntro", {delay: introDelay-.2, opacity: 1, ease: "power2.out", duration: fadeInTime});
@@ -159,19 +156,22 @@ async function getData(scInfo) {
 			{delay: introDelay+.1, x: 0, opacity: 1, ease: "power2.out", duration: fadeInTime}); //to
 
 		//set the character image and saga icon for the player
-		await updateChar(p1Character, p1Skin, 'p1Character', 'sagaIconP1');
+
+		// REMOVED for AZ overlay
+		// await updateChar(p1Character, p1Skin, 'p1Character', 'sagaIconP1');
+
 		//when the image finishes loading, fade-in-move the images to the overlay
-		initCharaFade("#p1Character", "#sagaIconP1", -pMove);
+		// initCharaFade("#p1Character", "#sagaIconP1", -pMove);
 		//save the character/skin so we run the character change code only when this doesnt equal to the next
-		p1CharacterPrev = p1Character;
-		p1SkinPrev = p1Skin;
+		// p1CharacterPrev = p1Character;
+		// p1SkinPrev = p1Skin;
 
 		//set the state image for the player
-		await updateState(p1State, 'p1State');
+		// await updateState(p1State, 'p1State');
 		//when the image finishes loading, fade-in-move the images to the overlay
-		initStateFade("#p1State", -pMove);
+		// initStateFade("#p1State", -pMove);
 		//save the state so we run the state change code only when this doesnt equal to the next
-		p1StatePrev = p1State;
+		// p1StatePrev = p1State;
 
 		//if its grands, we need to show the [W] and/or the [L] on the players
 		updateWL(p1WL, "1");
@@ -196,14 +196,17 @@ async function getData(scInfo) {
 			{x: pMove},
 			{delay: introDelay+.1, x: 0, opacity: 1, ease: "power2.out", duration: fadeInTime});
 
-		await updateChar(p2Character, p2Skin, 'p2Character', 'sagaIconP2');
-		initCharaFade("#p2Character", "#sagaIconP2");
-		p2CharacterPrev = p2Character;
-		p2SkinPrev = p2Skin;
+		// REMOVED for AZ overlay
+		// await updateChar(p2Character, p2Skin, 'p2Character', 'sagaIconP2');
 
-		await updateState(p2State, 'p2State');
-		initStateFade("#p2State", -pMove);
-		p2StatePrev = p2State;
+		// initCharaFade("#p2Character", "#sagaIconP2");
+		// p2CharacterPrev = p2Character;
+		// p2SkinPrev = p2Skin;
+
+		// REMOVED for AZ overlay
+		// await updateState(p2State, 'p2State');
+		// initStateFade("#p2State", -pMove);
+		// p2StatePrev = p2State;
 
 		updateWL(p2WL, "2");
 		p2wlPrev = p2WL;
@@ -222,11 +225,12 @@ async function getData(scInfo) {
 
 		//update the round text
 		updateRound(round);
+		updateTournament(tournamentName);
 		//update the best of text
 		if (bestOf == "Bo5") {
-			document.getElementById('bestOf').textContent = "Best of 5";
+			document.getElementById('bestOf').textContent = "Bo5";
 		} else {
-			document.getElementById('bestOf').textContent = "Best of 3";
+			document.getElementById('bestOf').textContent = "Bo3";
 		}
 		//fade them in (but only if round text is not empty)
 		if (round != "") {
@@ -236,30 +240,8 @@ async function getData(scInfo) {
 		//set the caster info
 		updateSocialText("caster1N", caster1, casterSize, "caster1TextBox");
 		updateSocialText("caster1Tr", twitter1, twitterSize, "caster1TwitterBox");
-		updateSocialText("caster1Th", twitch1, twitterSize, "caster1TwitchBox");
 		updateSocialText("caster2N", caster2, casterSize, "caster2TextBox");
 		updateSocialText("caster2Tr", twitter2, twitterSize, "caster2TwitterBox");
-		updateSocialText("caster2Th", twitch2, twitterSize, "caster2TwitchBox");
-
-		//setup twitter/twitch change
-		socialChange1("caster1TwitterBox", "caster1TwitchBox");
-		socialChange2("caster2TwitterBox", "caster2TwitchBox");
-		//set an interval to keep changing the names
-		socialInt1 = setInterval( () => {
-			socialChange1("caster1TwitterBox", "caster1TwitchBox");
-		}, socialInterval);
-		socialInt2 = setInterval(() => {
-			socialChange2("caster2TwitterBox", "caster2TwitchBox");
-		}, socialInterval);
-
-		//keep changing this boolean for the previous intervals
-		setInterval(() => {
-			if (socialSwitch) { //true = twitter, false = twitch
-				socialSwitch = false;
-			} else {
-				socialSwitch = true;
-			}
-		}, socialInterval);
 
 		//if a caster has no name, hide its icon
 		if (caster1 == "") {
@@ -271,11 +253,12 @@ async function getData(scInfo) {
 
 
 		//check if the team has a logo we can place on the overlay
-		updateTeamLogo("teamLogoP1", p1Team);
-		updateTeamLogo("teamLogoP2", p2Team);
-		//animate them
-		fadeIn("#teamLogoP1");
-		fadeIn("#teamLogoP2");
+		// REMOVED for AZ overlay
+		// updateTeamLogo("teamLogoP1", p1Team);
+		// updateTeamLogo("teamLogoP2", p2Team);
+		// animate them
+		// fadeIn("#teamLogoP1");
+		// fadeIn("#teamLogoP2");
 
 
 		startup = false; //next time we run this function, it will skip all we just did
@@ -286,7 +269,7 @@ async function getData(scInfo) {
 		
 		//player 1 time!
 		if (document.getElementById('p1Name').textContent != p1Name ||
-			document.getElementById('p1Team').textContent != p1Team ||
+			// document.getElementById('p1Team').textContent != p1Team ||
 			document.getElementById('p1Pron').textContent != p1Pron) {
 			//move and fade out the player 1's text
 			fadeOutMove("#p1Wrapper", -pMove, () => {
@@ -298,29 +281,29 @@ async function getData(scInfo) {
 		}
 
 		//player 1's character portrait change
-		if (p1CharacterPrev != p1Character || p1SkinPrev != p1Skin) {
-			//fade out the images while also moving them because that always looks cool
-			fadeOutChara("#p1Character", "#sagaIconP1", -pMove, async () => {
-				//now that nobody can see them, lets change the images!
-				updateChar(p1Character, p1Skin, 'p1Character', 'sagaIconP1'); //will return scale
-				//and now, fade them in
-				fadeInChara("#p1Character", '#sagaIconP1');
-			});
-			p1CharacterPrev = p1Character;
-			p1SkinPrev = p1Skin;
-		}
+		// if (p1CharacterPrev != p1Character || p1SkinPrev != p1Skin) {
+		// 	//fade out the images while also moving them because that always looks cool
+		// 	fadeOutChara("#p1Character", "#sagaIconP1", -pMove, async () => {
+		// 		//now that nobody can see them, lets change the images!
+		// 		updateChar(p1Character, p1Skin, 'p1Character', 'sagaIconP1'); //will return scale
+		// 		//and now, fade them in
+		// 		fadeInChara("#p1Character", '#sagaIconP1');
+		// 	});
+		// 	p1CharacterPrev = p1Character;
+		// 	p1SkinPrev = p1Skin;
+		// }
 
 		//player 1's state flag change
-		if (p1StatePrev != p1State) {
-			//fade out the images while also moving them because that always looks cool
-			fadeOutState("#p1State", -pMove, async () => {
-				//now that nobody can see them, lets change the images!
-				updateState(p1State, 'p1State'); //will return scale
-				//and now, fade them in
-				fadeInState("#p1State");
-			});
-			p1StatePrev = p1State;
-		}
+		// if (p1StatePrev != p1State) {
+		// 	//fade out the images while also moving them because that always looks cool
+		// 	fadeOutState("#p1State", -pMove, async () => {
+		// 		//now that nobody can see them, lets change the images!
+		// 		updateState(p1State, 'p1State'); //will return scale
+		// 		//and now, fade them in
+		// 		fadeInState("#p1State");
+		// 	});
+		// 	p1StatePrev = p1State;
+		// }
 
 		//the [W] and [L] status for grand finals
 		if (p1wlPrev != p1WL) {
@@ -354,17 +337,17 @@ async function getData(scInfo) {
 		}
 
 		//check if the team has a logo we can place on the overlay
-		if (document.getElementById('p1Team').textContent != p1Team) {
-			fadeOut("#teamLogoP1", () => {
-				updateTeamLogo("teamLogoP1", p1Team);
-				fadeIn("#teamLogoP1");
-			});
-		}
+		// if (document.getElementById('p1Team').textContent != p1Team) {
+		// 	fadeOut("#teamLogoP1", () => {
+		// 		updateTeamLogo("teamLogoP1", p1Team);
+		// 		fadeIn("#teamLogoP1");
+		// 	});
+		// }
 
 
 		//did you pay attention earlier? Well, this is the same as player 1!
 		if (document.getElementById('p2Name').textContent != p2Name ||
-			document.getElementById('p2Team').textContent != p2Team ||
+			// document.getElementById('p2Team').textContent != p2Team ||
 			document.getElementById('p2Pron').textContent != p2Pron) {
 			fadeOutMove("#p2Wrapper", pMove, () => {
 				updatePlayerName('p2Wrapper', 'p2Name', 'p2Team', 'p2Pron', p2Name, p2Team, p2Pron);
@@ -372,22 +355,22 @@ async function getData(scInfo) {
 			});
 		}
 
-		if (p2CharacterPrev != p2Character || p2SkinPrev != p2Skin) {
-			fadeOutChara("#p2Character", "#sagaIconP2", -pMove, async () => {
-				updateChar(p2Character, p2Skin, 'p2Character', 'sagaIconP2');
-				fadeInChara("#p2Character", "#sagaIconP2", -pMove);
-			});
-			p2CharacterPrev = p2Character;
-			p2SkinPrev = p2Skin;
-		}
+		// if (p2CharacterPrev != p2Character || p2SkinPrev != p2Skin) {
+		// 	fadeOutChara("#p2Character", "#sagaIconP2", -pMove, async () => {
+		// 		updateChar(p2Character, p2Skin, 'p2Character', 'sagaIconP2');
+		// 		fadeInChara("#p2Character", "#sagaIconP2", -pMove);
+		// 	});
+		// 	p2CharacterPrev = p2Character;
+		// 	p2SkinPrev = p2Skin;
+		// }
 
-		if (p2StatePrev != p2State) {
-			fadeOutState("#p2State", -pMove, async () => {
-				updateState(p2State, 'p2State');
-				fadeInState("#p2State");
-			});
-			p2StatePrev = p2State;
-		}
+		// if (p2StatePrev != p2State) {
+		// 	fadeOutState("#p2State", -pMove, async () => {
+		// 		updateState(p2State, 'p2State');
+		// 		fadeInState("#p2State");
+		// 	});
+		// 	p2StatePrev = p2State;
+		// }
 
 		if (p2wlPrev != p2WL) {
 			gsap.to("#wlP2", {x: pMove, opacity: 0, ease: "power1.in", duration: fadeOutTime, onComplete: pwlMoved});
@@ -413,12 +396,12 @@ async function getData(scInfo) {
 			p2ColorPrev = p2Color;
 		}
 
-		if (document.getElementById('p2Team').textContent != p2Team) {
-			fadeOut("#teamLogoP2", () => {
-				updateTeamLogo("teamLogoP2", p2Team);
-				fadeIn("#teamLogoP2");
-			});
-		}
+		// if (document.getElementById('p2Team').textContent != p2Team) {
+		// 	fadeOut("#teamLogoP2", () => {
+		// 		updateTeamLogo("teamLogoP2", p2Team);
+		// 		fadeIn("#teamLogoP2");
+		// 	});
+		// }
 
 
 		//hide or show score ticks depending of the Best Of status
@@ -432,7 +415,7 @@ async function getData(scInfo) {
 					{x: 0, opacity: 1, ease: "power2.out", duration: fadeInTime});
 				
 				fadeOut("#bestOf", () => {
-					document.getElementById('bestOf').textContent = "Best of 5";
+					document.getElementById('bestOf').textContent = "Bo5";
 					fadeIn("#bestOf");
 				});
 			} else {
@@ -442,7 +425,7 @@ async function getData(scInfo) {
 					{x: pMove, opacity: 0, ease: "power2.in", duration: fadeInTime});
 
 				fadeOut("#bestOf", () => {
-					document.getElementById('bestOf').textContent = "Best of 3";
+					document.getElementById('bestOf').textContent = "Bo3";
 					fadeIn("#bestOf");
 				});
 			}
@@ -451,7 +434,7 @@ async function getData(scInfo) {
 
 		
 		//update the round text
-		if (document.getElementById('round').textContent != round){
+		if (document.getElementById('overlayRound').textContent != round){
 			fadeOut("#overlayRound", () => {
 				updateRound(round);
 				if (round != "") {
@@ -475,10 +458,6 @@ async function getData(scInfo) {
 		if (document.getElementById('caster1Tr').textContent != twitter1){
 			updateSocial(twitter1, "caster1Tr", "caster1TwitterBox", twitch1, "caster1TwitchBox");
 		}
-		//caster 2's twitch (same as above)
-		if (document.getElementById('caster1Th').textContent != twitch1){
-			updateSocial(twitch1, "caster1Th", "caster1TwitchBox", twitter1, "caster1TwitterBox");
-		}
 
 		//caster 2, same as above
 		if (document.getElementById('caster2N').textContent != caster2){
@@ -491,10 +470,6 @@ async function getData(scInfo) {
 		}
 		if (document.getElementById('caster2Tr').textContent != twitter2){
 			updateSocial(twitter2, "caster2Tr", "caster2TwitterBox", twitch2, "caster2TwitchBox");
-		}
-
-		if (document.getElementById('caster2Th').textContent != twitch2){
-			updateSocial(twitch2, "caster2Th", "caster2TwitchBox", twitter2, "caster2TwitterBox");
 		}
 	}
 }
@@ -516,17 +491,17 @@ function updateScore(pNum, pScore, pColor) {
 	if (pScore >= 1) {
 		scoreChange(score1EL, getHexColor(pColor));
 	} else if (score1EL.style.fill != "rgb(65, 65, 65)") {
-		scoreChange(score1EL, "#012d16");
+		scoreChange(score1EL, "#081c54");
 	}
 	if (pScore >= 2) {
 		scoreChange(score2EL, getHexColor(pColor));
 	} else if (score2EL.style.fill != "rgb(65, 65, 65)") {
-		scoreChange(score2EL, "#012d16");
+		scoreChange(score2EL, "#081c54");
 	}
 	if (pScore == 3) {
 		scoreChange(score3EL, getHexColor(pColor));
 	} else if (score3EL.style.fill != "rgb(65, 65, 65)") {
-		scoreChange(score3EL, "#012d16");
+		scoreChange(score3EL, "#081c54");
 	}
 }
 function scoreChange(scoreEL, color) {
@@ -558,74 +533,7 @@ function updateTeamLogo(logoID, pTeam) {
 	if (startup) {logoEL.addEventListener("error", () => {showNothing(logoEL)})}
 }
 
-//the logic behind the twitter/twitch constant change
-function socialChange1(twitterWrapperID, twitchWrapperID) {
 
-	const twitterWrapperEL = document.getElementById(twitterWrapperID);
-	const twitchWrapperEL = document.getElementById(twitchWrapperID);
-
-	if (startup) {
-
-		//if first time, set initial opacities so we can read them later
-		if (!twitter1 && !twitch1) { //if all blank
-			twitterWrapperEL.style.opacity = 0;
-			twitchWrapperEL.style.opacity = 0;
-		} else if (!twitter1 && !!twitch1) { //if twitter blank
-			twitterWrapperEL.style.opacity = 0;
-			twitchWrapperEL.style.opacity = 1;
-		} else {
-			twitterWrapperEL.style.opacity = 1;
-			twitchWrapperEL.style.opacity = 0;
-		}
-		
-
-	} else if (!!twitter1 && !!twitch1) {
-
-		if (socialSwitch) {
-			fadeOut(twitterWrapperEL, () => {
-				fadeIn(twitchWrapperEL, 0);
-			});
-		} else {
-			fadeOut(twitchWrapperEL, () => {
-				fadeIn(twitterWrapperEL, 0);
-			});
-		}
-
-	}
-}
-//i didnt know how to make it a single function im sorry ;_;
-function socialChange2(twitterWrapperID, twitchWrapperID) {
-
-	const twitterWrapperEL = document.getElementById(twitterWrapperID);
-	const twitchWrapperEL = document.getElementById(twitchWrapperID);
-
-	if (startup) {
-
-		if (!twitter2 && !twitch2) {
-			twitterWrapperEL.style.opacity = 0;
-			twitchWrapperEL.style.opacity = 0;
-		} else if (!twitter2 && !!twitch2) {
-			twitterWrapperEL.style.opacity = 0;
-			twitchWrapperEL.style.opacity = 1;
-		} else {
-			twitterWrapperEL.style.opacity = 1;
-			twitchWrapperEL.style.opacity = 0;
-		}
-
-	} else if (!!twitter2 && !!twitch2) {
-
-		if (socialSwitch) {
-			fadeOut(twitterWrapperEL, () => {
-				fadeIn(twitchWrapperEL, 0);
-			});
-		} else {
-			fadeOut(twitchWrapperEL, () => {
-				fadeIn(twitterWrapperEL, 0);
-			});
-		}
-
-	}
-}
 //function to decide when to change to what
 function updateSocial(mainSocial, mainText, mainBox, otherSocial, otherBox) {
 	//check if this is for twitch or twitter
@@ -657,9 +565,9 @@ function updatePlayerName(wrapperID, nameID, teamID, pronID, pName, pTeam, pPron
 	const nameEL = document.getElementById(nameID);
 	nameEL.style.fontSize = '50px'; //set original text size
 	nameEL.textContent = pName; //change the actual text
-	const teamEL = document.getElementById(teamID);
-	teamEL.style.fontSize = '30px';
-	teamEL.textContent = pTeam;
+	// const teamEL = document.getElementById(teamID);
+	// teamEL.style.fontSize = '30px';
+	// teamEL.textContent = pTeam;
 	const pronEL = document.getElementById(pronID);
 	pronEL.style.fontSize = '30px';
 	pronEL.textContent = pPron;
@@ -668,10 +576,17 @@ function updatePlayerName(wrapperID, nameID, teamID, pronID, pName, pTeam, pPron
 
 //round change
 function updateRound(round) {
-	const roundEL = document.getElementById('round');
+	const roundEL = document.getElementById('overlayRound');
 	roundEL.style.fontSize = roundSize; //set original text size
 	roundEL.textContent = round; //change the actual text
 	resizeText(roundEL); //resize it if it overflows
+}
+
+function updateTournament(tournamentName) {
+	const tournamentEL = document.getElementById('overlayTournament');
+	tournamentEL.style.fontSize = roundSize; //set original text size
+	tournamentEL.textContent = tournamentName; //change the actual text
+	resizeText(tournamentEL); //resize it if it overflows
 }
 
 //generic text changer
